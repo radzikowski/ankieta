@@ -1,0 +1,25 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  facebook:
+    app_id: 195365697172204
+    secret_key: ccf61b3ded71bf895879e7eda14ff5d7
+    api_key: ad1e2c44c30808c5220001826c19aa9c
+    permissions: 'publish_stream'
+    funpage_id: 150814674957466
+  frontend_url: http://apps.facebook.com/geek_pc/
+  server_url: http://poll.dev/
+  allow_publish: 1
+  
+dev:
+  facebook:
+    app_id: 195365697172204
+    secret_key: ccf61b3ded71bf895879e7eda14ff5d7
+    api_key: ad1e2c44c30808c5220001826c19aa9c
+    permissions: 'publish_stream'
+    funpage_id: 150814674957466  #bezpiecznie na lodzie
+  frontend_url: http://apps.facebook.com/geek_pc/
+  server_url: http://poll.dev/
+  allow_publish: 1

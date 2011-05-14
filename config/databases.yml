@@ -1,0 +1,26 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/07-Databases
+
+#all:
+#  doctrine:
+#    class: sfDoctrineDatabase
+#    param:
+#      dsn:      mysql:host=localhost;dbname=u_ibum
+#      username: u_ibum
+#      password: tgbIbum12#
+#     
+all:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn:      mysql:host=localhost;dbname=u_poll
+      username: u_poll
+      password: tgbu_poll12#
+       
+#dev:
+#  doctrine:
+#    class: sfDoctrineDatabase
+#    param:
+#      dsn:      mysql:host=localhost;dbname=ibumquiz
+#      username: ahilles107
+#      password: ck8daj

@@ -1,0 +1,27 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/13-View
+
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    #title:        symfony project
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+
+  stylesheets:
+    - screen.css?v=2
+    - main.css?v=<?php echo time();?>
+
+  javascripts:
+    - http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.1.js
+    - http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.js
+    - cookie.js
+    - frontend.js?v=<?php echo time(); ?> 
+    - jquery.imagetick.js
+
+  has_layout:     true
+  layout:         layout

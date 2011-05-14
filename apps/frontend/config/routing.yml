@@ -1,0 +1,21 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+homepage:
+  url:   /
+  param: { module: poll, action: index , poll: sss}
+
+# generic rules
+# please, remove them by adding more specific rules
+poll:
+  url:  /:name
+  param: { module: poll, action: index}
+
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*
+
