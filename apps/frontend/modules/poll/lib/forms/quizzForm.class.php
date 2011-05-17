@@ -13,7 +13,9 @@ class quizzForm extends BaseForm
 
                 $this->points = $this->getOption('points');
 
-		$this->setWidgetsSchema();
+                $this->self = $this->getOption('self');
+                
+                $this->setWidgetsSchema();
 		$this->setValidatorsSchema();
 	}
         
@@ -63,6 +65,10 @@ class quizzForm extends BaseForm
 				$choises[$this->question->id.'___'.$answer->id.'___'.$key] = $answer->value;
 			}
 		}
+                
+                if ($this->self!=false)
+                $choises[$this->question->id.'___null___0'] = $this->self;
+                
 		return $choises;
 	}
 }

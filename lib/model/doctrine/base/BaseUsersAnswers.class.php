@@ -60,8 +60,7 @@ abstract class BaseUsersAnswers extends sfDoctrineRecord
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
+             'primary' => true,
              'autoincrement' => false,
              'length' => 4,
              ));

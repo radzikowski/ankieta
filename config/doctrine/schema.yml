@@ -463,8 +463,7 @@ UsersAnswers:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: false
-      notnull: false
+      primary: true
       autoincrement: false
     answer_text:
       type: string()
