@@ -11,6 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('PollComment', 'doctrine');
  * @property integer $poll_id
  * @property string $user_id
  * @property string $comment
+ * @property integer $is_visible
  * @property timestamp $created_at
  * @property Poll $Poll
  * @property Users $Users
@@ -19,6 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('PollComment', 'doctrine');
  * @method integer     getPollId()     Returns the current record's "poll_id" value
  * @method string      getUserId()     Returns the current record's "user_id" value
  * @method string      getComment()    Returns the current record's "comment" value
+ * @method integer     getIsVisible()  Returns the current record's "is_visible" value
  * @method timestamp   getCreatedAt()  Returns the current record's "created_at" value
  * @method Poll        getPoll()       Returns the current record's "Poll" value
  * @method Users       getUsers()      Returns the current record's "Users" value
@@ -26,6 +28,7 @@ Doctrine_Manager::getInstance()->bindComponent('PollComment', 'doctrine');
  * @method PollComment setPollId()     Sets the current record's "poll_id" value
  * @method PollComment setUserId()     Sets the current record's "user_id" value
  * @method PollComment setComment()    Sets the current record's "comment" value
+ * @method PollComment setIsVisible()  Sets the current record's "is_visible" value
  * @method PollComment setCreatedAt()  Sets the current record's "created_at" value
  * @method PollComment setPoll()       Sets the current record's "Poll" value
  * @method PollComment setUsers()      Sets the current record's "Users" value
@@ -74,6 +77,16 @@ abstract class BasePollComment extends sfDoctrineRecord
              'notnull' => true,
              'autoincrement' => false,
              'length' => '',
+             ));
+        $this->hasColumn('is_visible', 'integer', 1, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '1',
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => 1,
              ));
         $this->hasColumn('created_at', 'timestamp', 25, array(
              'type' => 'timestamp',

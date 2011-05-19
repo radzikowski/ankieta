@@ -14,8 +14,8 @@ Doctrine_Manager::getInstance()->bindComponent('DemographicStat', 'doctrine');
  * @property enum $sex
  * @property integer $age
  * @property timestamp $created_at
- * @property Poll $Poll
  * @property Users $Users
+ * @property Poll $Poll
  * 
  * @method integer         getId()         Returns the current record's "id" value
  * @method integer         getPollId()     Returns the current record's "poll_id" value
@@ -24,8 +24,8 @@ Doctrine_Manager::getInstance()->bindComponent('DemographicStat', 'doctrine');
  * @method enum            getSex()        Returns the current record's "sex" value
  * @method integer         getAge()        Returns the current record's "age" value
  * @method timestamp       getCreatedAt()  Returns the current record's "created_at" value
- * @method Poll            getPoll()       Returns the current record's "Poll" value
  * @method Users           getUsers()      Returns the current record's "Users" value
+ * @method Poll            getPoll()       Returns the current record's "Poll" value
  * @method DemographicStat setId()         Sets the current record's "id" value
  * @method DemographicStat setPollId()     Sets the current record's "poll_id" value
  * @method DemographicStat setUserId()     Sets the current record's "user_id" value
@@ -33,8 +33,8 @@ Doctrine_Manager::getInstance()->bindComponent('DemographicStat', 'doctrine');
  * @method DemographicStat setSex()        Sets the current record's "sex" value
  * @method DemographicStat setAge()        Sets the current record's "age" value
  * @method DemographicStat setCreatedAt()  Sets the current record's "created_at" value
- * @method DemographicStat setPoll()       Sets the current record's "Poll" value
  * @method DemographicStat setUsers()      Sets the current record's "Users" value
+ * @method DemographicStat setPoll()       Sets the current record's "Poll" value
  * 
  * @package    ibum
  * @subpackage model
@@ -118,12 +118,12 @@ abstract class BaseDemographicStat extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Poll', array(
-             'local' => 'poll_id',
-             'foreign' => 'id'));
-
         $this->hasOne('Users', array(
              'local' => 'user_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Poll', array(
+             'local' => 'poll_id',
              'foreign' => 'id'));
     }
 }

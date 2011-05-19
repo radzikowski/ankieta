@@ -114,12 +114,12 @@ DemographicStat:
       notnull: true
       autoincrement: false
   relations:
-    Poll:
-      local: poll_id
-      foreign: id
-      type: one
     Users:
       local: user_id
+      foreign: id
+      type: one
+    Poll:
+      local: poll_id
       foreign: id
       type: one
 Layout:
@@ -315,6 +315,14 @@ PollComment:
       fixed: false
       unsigned: false
       primary: false
+      notnull: true
+      autoincrement: false
+    is_visible:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
       notnull: true
       autoincrement: false
     created_at:

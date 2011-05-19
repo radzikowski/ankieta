@@ -8,7 +8,8 @@ class indexAction extends sfAction
 	}
        
         public function execute($request)
-	{		
+	{	
+            
                 if (!$this->request->hasParameter('name'))
                     $this->redirect(url_for2('default', array('module' => 'missing', 'action' => 'index'), true));
               
@@ -48,7 +49,6 @@ class indexAction extends sfAction
                             {
                                 var_dump($this->demographicForm->getValue('age'));
                                 var_dump($this->demographicForm->getValue('sex'));
-
                             }   
                     }
                 }
