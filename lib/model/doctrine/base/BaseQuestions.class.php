@@ -13,6 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('Questions', 'doctrine');
  * @property timestamp $created_at
  * @property Poll $Poll
  * @property Doctrine_Collection $QuestionsAnswers
+ * @property Doctrine_Collection $UsersAnswers
  * 
  * @method integer             getId()               Returns the current record's "id" value
  * @method integer             getPollId()           Returns the current record's "poll_id" value
@@ -20,12 +21,14 @@ Doctrine_Manager::getInstance()->bindComponent('Questions', 'doctrine');
  * @method timestamp           getCreatedAt()        Returns the current record's "created_at" value
  * @method Poll                getPoll()             Returns the current record's "Poll" value
  * @method Doctrine_Collection getQuestionsAnswers() Returns the current record's "QuestionsAnswers" collection
+ * @method Doctrine_Collection getUsersAnswers()     Returns the current record's "UsersAnswers" collection
  * @method Questions           setId()               Sets the current record's "id" value
  * @method Questions           setPollId()           Sets the current record's "poll_id" value
  * @method Questions           setQuestion()         Sets the current record's "question" value
  * @method Questions           setCreatedAt()        Sets the current record's "created_at" value
  * @method Questions           setPoll()             Sets the current record's "Poll" value
  * @method Questions           setQuestionsAnswers() Sets the current record's "QuestionsAnswers" collection
+ * @method Questions           setUsersAnswers()     Sets the current record's "UsersAnswers" collection
  * 
  * @package    ibum
  * @subpackage model
@@ -40,7 +43,7 @@ abstract class BaseQuestions extends sfDoctrineRecord
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
-             'unsigned' => true,
+             'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
              'length' => 4,
@@ -82,6 +85,10 @@ abstract class BaseQuestions extends sfDoctrineRecord
              'foreign' => 'id'));
 
         $this->hasMany('QuestionsAnswers', array(
+             'local' => 'id',
+             'foreign' => 'question_id'));
+
+        $this->hasMany('UsersAnswers', array(
              'local' => 'id',
              'foreign' => 'question_id'));
     }

@@ -13,10 +13,10 @@ AnswersStat:
       fixed: false
       unsigned: false
       primary: false
-      notnull: true
+      notnull: false
       autoincrement: false
     votes:
-      type: integer(4)
+      type: float()
       fixed: false
       unsigned: false
       primary: false
@@ -29,6 +29,11 @@ AnswersStat:
       primary: false
       notnull: true
       autoincrement: false
+  relations:
+    QuestionsAnswers:
+      local: answer_id
+      foreign: id
+      type: one
 Config:
   connection: doctrine
   tableName: config
@@ -63,6 +68,13 @@ DemographicStat:
       unsigned: false
       primary: true
       autoincrement: true
+    poll_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
     user_id:
       type: string(70)
       fixed: false
@@ -78,9 +90,12 @@ DemographicStat:
       notnull: true
       autoincrement: false
     sex:
-      type: string(50)
+      type: enum(6)
       fixed: false
       unsigned: false
+      values:
+        - male
+        - female
       primary: false
       notnull: true
       autoincrement: false
@@ -99,6 +114,10 @@ DemographicStat:
       notnull: true
       autoincrement: false
   relations:
+    Poll:
+      local: poll_id
+      foreign: id
+      type: one
     Users:
       local: user_id
       foreign: id
@@ -227,6 +246,22 @@ Poll:
       default: '0'
       notnull: true
       autoincrement: false
+    demographic:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '0'
+      notnull: true
+      autoincrement: false
+    is_active:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '0'
+      notnull: true
+      autoincrement: false
     created_at:
       type: timestamp(25)
       fixed: false
@@ -239,6 +274,10 @@ Poll:
       local: layout_id
       foreign: id
       type: one
+    DemographicStat:
+      local: id
+      foreign: poll_id
+      type: many
     PollComment:
       local: id
       foreign: poll_id
@@ -301,7 +340,7 @@ Questions:
     id:
       type: integer(4)
       fixed: false
-      unsigned: true
+      unsigned: false
       primary: true
       autoincrement: true
     poll_id:
@@ -334,6 +373,10 @@ Questions:
       local: id
       foreign: question_id
       type: many
+    UsersAnswers:
+      local: id
+      foreign: question_id
+      type: many
 QuestionsAnswers:
   connection: doctrine
   tableName: questions_answers
@@ -341,13 +384,13 @@ QuestionsAnswers:
     id:
       type: integer(4)
       fixed: false
-      unsigned: true
+      unsigned: false
       primary: true
       autoincrement: true
     question_id:
       type: integer(4)
       fixed: false
-      unsigned: true
+      unsigned: false
       primary: false
       notnull: true
       autoincrement: false
@@ -370,6 +413,14 @@ QuestionsAnswers:
       local: question_id
       foreign: id
       type: one
+    AnswersStat:
+      local: id
+      foreign: answer_id
+      type: many
+    UsersAnswers:
+      local: id
+      foreign: answer_id
+      type: many
 Users:
   connection: doctrine
   tableName: users
@@ -447,23 +498,34 @@ UsersAnswers:
   connection: doctrine
   tableName: users_answers
   columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
     user_id:
       type: string(70)
       fixed: false
       unsigned: false
-      primary: true
+      primary: false
+      default: ''
+      notnull: true
       autoincrement: false
     question_id:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: true
+      primary: false
+      default: '0'
+      notnull: true
       autoincrement: false
     answer_id:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: true
+      primary: false
+      notnull: false
       autoincrement: false
     answer_text:
       type: string()
@@ -489,5 +551,13 @@ UsersAnswers:
   relations:
     Users:
       local: user_id
+      foreign: id
+      type: one
+    Questions:
+      local: question_id
+      foreign: id
+      type: one
+    QuestionsAnswers:
+      local: answer_id
       foreign: id
       type: one

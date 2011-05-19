@@ -9,17 +9,20 @@ Doctrine_Manager::getInstance()->bindComponent('AnswersStat', 'doctrine');
  * 
  * @property integer $id
  * @property integer $answer_id
- * @property integer $votes
+ * @property float $votes
  * @property timestamp $created_at
+ * @property QuestionsAnswers $QuestionsAnswers
  * 
- * @method integer     getId()         Returns the current record's "id" value
- * @method integer     getAnswerId()   Returns the current record's "answer_id" value
- * @method integer     getVotes()      Returns the current record's "votes" value
- * @method timestamp   getCreatedAt()  Returns the current record's "created_at" value
- * @method AnswersStat setId()         Sets the current record's "id" value
- * @method AnswersStat setAnswerId()   Sets the current record's "answer_id" value
- * @method AnswersStat setVotes()      Sets the current record's "votes" value
- * @method AnswersStat setCreatedAt()  Sets the current record's "created_at" value
+ * @method integer          getId()               Returns the current record's "id" value
+ * @method integer          getAnswerId()         Returns the current record's "answer_id" value
+ * @method float            getVotes()            Returns the current record's "votes" value
+ * @method timestamp        getCreatedAt()        Returns the current record's "created_at" value
+ * @method QuestionsAnswers getQuestionsAnswers() Returns the current record's "QuestionsAnswers" value
+ * @method AnswersStat      setId()               Sets the current record's "id" value
+ * @method AnswersStat      setAnswerId()         Sets the current record's "answer_id" value
+ * @method AnswersStat      setVotes()            Sets the current record's "votes" value
+ * @method AnswersStat      setCreatedAt()        Sets the current record's "created_at" value
+ * @method AnswersStat      setQuestionsAnswers() Sets the current record's "QuestionsAnswers" value
  * 
  * @package    ibum
  * @subpackage model
@@ -44,18 +47,18 @@ abstract class BaseAnswersStat extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'notnull' => true,
+             'notnull' => false,
              'autoincrement' => false,
              'length' => 4,
              ));
-        $this->hasColumn('votes', 'integer', 4, array(
-             'type' => 'integer',
+        $this->hasColumn('votes', 'float', null, array(
+             'type' => 'float',
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
-             'length' => 4,
+             'length' => '',
              ));
         $this->hasColumn('created_at', 'timestamp', 25, array(
              'type' => 'timestamp',
@@ -71,6 +74,8 @@ abstract class BaseAnswersStat extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasOne('QuestionsAnswers', array(
+             'local' => 'answer_id',
+             'foreign' => 'id'));
     }
 }

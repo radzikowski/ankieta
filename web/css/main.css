@@ -24,6 +24,6 @@ body{font-family: "Trebuchet MS",Helvetica,Jamrul,sans-serif; font-size: 16px;co
 #quizModule{width: 760px; height: 700px; margin: 0 auto; background-repeat: no-repeat; background-image: url('/images/quiz_background.jpg');}
 #quizModule #quizForm {margin-top: 116px;}
 #quizModule #quizForm ul {list-style: none}
-#quizModule .quizzNextQuestion{background-image: url('/images/next_button.png');width: 108px;height: 39px;cursor: pointer;margin-right: 40px;position: fixed;right: 140px;bottom: 45px;}
-#quizModule .quizzPrevQuestion{background-image: url('/images/back_button.png');width: 108px;height: 39px;cursor: pointer;margin-right: 40px;position: fixed;right: 280px;bottom: 45px;}
+#quizModule .nextQuestion{background-image: url('/images/next_button.png');width: 108px;height: 39px;cursor: pointer;margin-right: 40px;/*position: fixed;right: 140px;bottom: 45px;*/}
+#quizModule .prevQuestion{background-image: url('/images/back_button.png');width: 108px;height: 39px;cursor: pointer;margin-right: 40px;/*position: fixed;right: 280px;bottom: 45px;*/}
 

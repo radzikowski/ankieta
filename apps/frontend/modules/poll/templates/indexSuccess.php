@@ -1,12 +1,22 @@
 <div id="quizModule">
+    <div class="header"><img src="/uploads/<?php ?>" /></div>
+    <div class="background" style="background-image: url('/uploads/<?php ?>');">
 	<div class="clear" style="height: 1px"></div>
 	<?php echo $quizzCollectionForm->renderFormTag(null, array('id' => 'quizForm'));?>
 	<?php echo $quizzCollectionForm['_csrf_token']->render();?>
 	<?php $i = 0; ?>
             <ul>
-                <?php if (false){?>
+                <?php if ($poll['demographic']){ ?>
+                <?php echo $demographicForm->renderFormTag(null, array('id' => 'demographicForm'));?>
+                <?php echo $demographicForm['_csrf_token']->render();?>
                 <li class="<?php echo $i ?> <?php if($i === 0) echo 'active'; ?>"  iterate="<?php echo $i; ?>" style="<?php if($i !== 0) echo 'display:none'; ?>">
-                    
+                    <div class="question"> Wypełnij część demograficzną ankiety</div>
+                    <div class="">Wiek: <?php echo $demographicForm['age']->render() ?></div>
+                    <div class="">Płeć: <?php echo $demographicForm['sex']->render() ?></div>
+                    <?php if ($demographicForm->hasErrors()){ ?>
+                    <div class="errors"><?php ?> </div>
+                    <?php } ?>
+                    </form>
                 <?php $i++; ?>
                 </li>
                 <?php } ?>
@@ -22,23 +32,27 @@
                     <?php $i++; }?>
                 <?php }?>
             </ul>
-        <?php echo $poll['type'] ?>
             <input type="hidden" name="signed_request" value="<?php echo sfContext::getInstance()->getUser()->getAttribute('signed_request', null, 'signed_request') ?>" />
 	</form>
 	<div class="prevQuestion right"></div>
 	<div class="nextQuestion right"></div>
-        <div id="results"></div>
+    </div>
+    <div class="footer"><img src="/uploads/<?php ?>" /></div>
 </div>
 <script type="text/javascript">
 
 var app = {};
+
 app.functions = {};
 
 <?php if ($poll['self_answers']){ ?>
-    $("label[for*='null']").each(function(){
-        $(this).replaceWith('<input onBlur="test(this);" type=text name="self'+$(this).parent().parent().parent().parent().attr('iterate')+'" value=""/>');                
+    $("label[for*='null']").each(function(i,e){
+        $(this).replaceWith('<input class="'+i+'" onBlur="check($(\'input.'+i+'\'))" type=text name="self'+$(this).parent().parent().parent().parent().attr('iterate')+'" value=""/>');                
     });        
 
+    check = function(element){
+        element.parent().children().attr('checked',"checked");
+    };
 <?php }?>
 
 
@@ -57,29 +71,20 @@ app.functions = {};
         '<option value="10">10</option>'+
     '</select>');
 
-//    $('.checkbox_list li input').hide();
-    $("select").change(function () {
-                $(this).parent() .children('input:first').val($(this).parent() .children('input:first').val()+'___'+$(this).val() );
-                $(this).next().attr('checked',"checked");
-    });
+    $('.checkbox_list li input[name*="quizzCollection"]').hide();
 
-
-    $(":input").each(function() {
+    $("input[name*='quizzCollection']").each(function() {
 	this.checked = true;
     });
 
     $(':input[value*="null"]').each(function(){
         $(this).attr('checked',"");
-    }); 
+    });
     
-    function test($this)
-    {
-    var $j = jQuery.noConflict();
-    $val = $this.val();
-        alert($val);
-        //alert($(this).val());
-        //$(this).parent().children().attr('checked',"checked");
-    }; 
+    $("select").change(function () {
+                $(this).parent() .children('input[name*="quizzCollection"]').val($(this).parent() .children('input[name*="quizzCollection"]').val()+'___'+$(this).val() );
+                $(this).next().attr('checked',"checked");  
+    });
 <?php } ?>    
 
 
@@ -103,18 +108,21 @@ $('.prevQuestion').live('click', function(){
 
 $('.nextQuestion').live('click', function(){
 	if($('ul li.active ul li input:checked').length > 0){
-		if($('ul li.active').hasClass('<?php echo count($questions)-1 ?>'))
+                if ((<?php echo $poll['demographic'] ?>) && ($('ul li.active').hasClass(1)))
+                {    
+                    $('form#demographicForm').submit();
+                }
+		if($('ul li.active').hasClass('<?php echo ($poll['demographic']) ? count($questions) : count($questions)-1; ?>'))
 		{
-			$('form#quizForm').submit();
+                    $('form#quizForm').submit();
 		}
 		if((parseInt($('ul li.active').attr('iterate'))+1) < 4)
 		{
-			var i = $('ul li.active').attr('iterate');
-			var next = parseInt(i)+1;
-			//var questionNumber = next+1;
-			$("ul li.active").hide().removeClass('active');
-			$("ul li."+next+"").show().addClass('active');
-			app.functions.showHidePrevButton();
+                    var i = $('ul li.active').attr('iterate');
+                    var next = parseInt(i)+1;
+                    $("ul li.active").hide().removeClass('active');
+                    $("ul li."+next+"").show().addClass('active');
+                    app.functions.showHidePrevButton();
 		}
 	}
 	else

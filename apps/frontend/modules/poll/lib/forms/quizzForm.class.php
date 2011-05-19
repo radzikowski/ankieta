@@ -28,10 +28,6 @@ class quizzForm extends BaseForm
 				'multiple' => $this->multi,
 				'expanded' => true
                         ), array())
-                        //,
-                        //'points' => new sfWidgetFormSelect(array(
-                         //   'choices' => array('-','1','2','3','4','5','6','7','8','9','10')
-                        //), array()),
 		));
 
 		$this->widgetSchema->setNameFormat('quizz[%s]');
@@ -49,9 +45,6 @@ class quizzForm extends BaseForm
                                 'required' => false
                             ))
                         ), array())
-                      //  'points' => new sfValidatorChoice(array(
-                      //          'required' => $this->points
-                      //  ), array())
 		));
 	}
 
@@ -62,7 +55,7 @@ class quizzForm extends BaseForm
 		{
 			foreach($this->question->QuestionsAnswers as $key => $answer)
 			{
-				$choises[$this->question->id.'___'.$answer->id.'___'.$key] = $answer->value;
+				$choises[$this->question->id.'___'.$answer->id.'___0'] = $answer->value;
 			}
 		}
                 

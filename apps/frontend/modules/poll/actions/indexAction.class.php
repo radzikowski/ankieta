@@ -35,7 +35,23 @@ class indexAction extends sfAction
                        for($i=0;$i<count($this->questions);$i++)
                         $optionQuizzCollection['self'.$i] = "self";
                       }
-                      
+                
+                if ($this->poll['demographic'])
+                {
+                    $this->demographicForm = new demogrphicForm();
+
+                    if ($request->hasParameter('demographic'))
+                    {
+                            $this->demographicForm->bind($request->getParameter('demographic'));
+
+                            if ($this->demographicForm->isValid())
+                            {
+                                var_dump($this->demographicForm->getValue('age'));
+                                var_dump($this->demographicForm->getValue('sex'));
+
+                            }   
+                    }
+                }
                 $this->quizzCollectionForm = new quizzCollectionForm(null, $optionQuizzCollection);
                 
 		if ($request->hasParameter('quizzCollection'))

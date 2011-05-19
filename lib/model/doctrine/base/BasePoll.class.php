@@ -12,29 +12,38 @@ Doctrine_Manager::getInstance()->bindComponent('Poll', 'doctrine');
  * @property integer $layout_id
  * @property enum $type
  * @property integer $self_answers
+ * @property integer $demographic
+ * @property integer $is_active
  * @property timestamp $created_at
  * @property Layout $Layout
+ * @property Doctrine_Collection $DemographicStat
  * @property Doctrine_Collection $PollComment
  * @property Doctrine_Collection $Questions
  * 
- * @method integer             getId()           Returns the current record's "id" value
- * @method string              getName()         Returns the current record's "name" value
- * @method integer             getLayoutId()     Returns the current record's "layout_id" value
- * @method enum                getType()         Returns the current record's "type" value
- * @method integer             getSelfAnswers()  Returns the current record's "self_answers" value
- * @method timestamp           getCreatedAt()    Returns the current record's "created_at" value
- * @method Layout              getLayout()       Returns the current record's "Layout" value
- * @method Doctrine_Collection getPollComment()  Returns the current record's "PollComment" collection
- * @method Doctrine_Collection getQuestions()    Returns the current record's "Questions" collection
- * @method Poll                setId()           Sets the current record's "id" value
- * @method Poll                setName()         Sets the current record's "name" value
- * @method Poll                setLayoutId()     Sets the current record's "layout_id" value
- * @method Poll                setType()         Sets the current record's "type" value
- * @method Poll                setSelfAnswers()  Sets the current record's "self_answers" value
- * @method Poll                setCreatedAt()    Sets the current record's "created_at" value
- * @method Poll                setLayout()       Sets the current record's "Layout" value
- * @method Poll                setPollComment()  Sets the current record's "PollComment" collection
- * @method Poll                setQuestions()    Sets the current record's "Questions" collection
+ * @method integer             getId()              Returns the current record's "id" value
+ * @method string              getName()            Returns the current record's "name" value
+ * @method integer             getLayoutId()        Returns the current record's "layout_id" value
+ * @method enum                getType()            Returns the current record's "type" value
+ * @method integer             getSelfAnswers()     Returns the current record's "self_answers" value
+ * @method integer             getDemographic()     Returns the current record's "demographic" value
+ * @method integer             getIsActive()        Returns the current record's "is_active" value
+ * @method timestamp           getCreatedAt()       Returns the current record's "created_at" value
+ * @method Layout              getLayout()          Returns the current record's "Layout" value
+ * @method Doctrine_Collection getDemographicStat() Returns the current record's "DemographicStat" collection
+ * @method Doctrine_Collection getPollComment()     Returns the current record's "PollComment" collection
+ * @method Doctrine_Collection getQuestions()       Returns the current record's "Questions" collection
+ * @method Poll                setId()              Sets the current record's "id" value
+ * @method Poll                setName()            Sets the current record's "name" value
+ * @method Poll                setLayoutId()        Sets the current record's "layout_id" value
+ * @method Poll                setType()            Sets the current record's "type" value
+ * @method Poll                setSelfAnswers()     Sets the current record's "self_answers" value
+ * @method Poll                setDemographic()     Sets the current record's "demographic" value
+ * @method Poll                setIsActive()        Sets the current record's "is_active" value
+ * @method Poll                setCreatedAt()       Sets the current record's "created_at" value
+ * @method Poll                setLayout()          Sets the current record's "Layout" value
+ * @method Poll                setDemographicStat() Sets the current record's "DemographicStat" collection
+ * @method Poll                setPollComment()     Sets the current record's "PollComment" collection
+ * @method Poll                setQuestions()       Sets the current record's "Questions" collection
  * 
  * @package    ibum
  * @subpackage model
@@ -97,6 +106,26 @@ abstract class BasePoll extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 1,
              ));
+        $this->hasColumn('demographic', 'integer', 1, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => 1,
+             ));
+        $this->hasColumn('is_active', 'integer', 1, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0',
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => 1,
+             ));
         $this->hasColumn('created_at', 'timestamp', 25, array(
              'type' => 'timestamp',
              'fixed' => 0,
@@ -114,6 +143,10 @@ abstract class BasePoll extends sfDoctrineRecord
         $this->hasOne('Layout', array(
              'local' => 'layout_id',
              'foreign' => 'id'));
+
+        $this->hasMany('DemographicStat', array(
+             'local' => 'id',
+             'foreign' => 'poll_id'));
 
         $this->hasMany('PollComment', array(
              'local' => 'id',
