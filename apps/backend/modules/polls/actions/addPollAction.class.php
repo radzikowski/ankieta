@@ -21,38 +21,22 @@ class addPollAction extends sfAction
 		sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
 		$dayNumber = DaysOrderTable::getInstance()->count();
 		$this->addDayForm = new addDayForm();
-		$this->addDayForm->setDefault('day_number', $dayNumber+1);
+//		$this->addDayForm->setDefault('day_number', $dayNumber+1);
 
 		if ($this->getRequest()->hasParameter('addDay'))
 		{
-			$this->addDayForm->bind($this->getRequest()->getParameter('addDay'), $this->getRequest()->getFiles('addDay'));
+			$this->addDayForm->bind($this->getRequest()->getParameter('addDay'));
 			if ($this->addDayForm->isValid())
 			{
-				$this->day = new DaysOrder();
+				$this->poll = new Poll();
 				
-				$files = $request->getFiles('addDay');
-				$i = '';
-        		foreach($files as $key => $file)
-        		{
-        			if ($file['name'])
-        			{
-	        			$image = new UploadService();
-	        			$image -> setPath('./uploads/');
-	        			$image -> setFile($file);
-	        			$image -> setFileName(md5($file['name'] . date('YmdGis')).'.'.UploadService::findexts($file['name']));
-	        			$image -> save();
-        				$this->day['image_name'.$i] = $image->getFileName();
-        			}
-        			$i = 2;
-        			
-        		}
 				
-				$this->day->fromArray(array(
-					'day_number' => $this->addDayForm->getValue('day_number'),
-					'day_tip' => $this->addDayForm->getValue('day_tip'),
-					'day_letter' => $this->addDayForm->getValue('day_letter'),
+				$this->poll->fromArray(array(
+					'' => $this->addDayForm->getValue('day_number'),
+					'' => $this->addDayForm->getValue('day_tip'),
+					'' => $this->addDayForm->getValue('day_letter'),
 				));				
-				$this->day->save();
+				$this->poll->save();
 				$this->redirect(url_for2('default', array('module' => 'questions', 'action' => 'dayQuestions'), true).'?nr='.$this->day->day_number);
 			}
 		}
