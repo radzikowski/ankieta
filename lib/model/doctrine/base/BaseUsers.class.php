@@ -15,6 +15,7 @@ Doctrine_Manager::getInstance()->bindComponent('Users', 'doctrine');
  * @property integer $friends_count
  * @property timestamp $created_at
  * @property integer $is_active
+ * @property Doctrine_Collection $BestAnswers
  * @property Doctrine_Collection $DemographicStat
  * @property Doctrine_Collection $PollComment
  * @property Doctrine_Collection $UsersAnswers
@@ -27,6 +28,7 @@ Doctrine_Manager::getInstance()->bindComponent('Users', 'doctrine');
  * @method integer             getFriendsCount()    Returns the current record's "friends_count" value
  * @method timestamp           getCreatedAt()       Returns the current record's "created_at" value
  * @method integer             getIsActive()        Returns the current record's "is_active" value
+ * @method Doctrine_Collection getBestAnswers()     Returns the current record's "BestAnswers" collection
  * @method Doctrine_Collection getDemographicStat() Returns the current record's "DemographicStat" collection
  * @method Doctrine_Collection getPollComment()     Returns the current record's "PollComment" collection
  * @method Doctrine_Collection getUsersAnswers()    Returns the current record's "UsersAnswers" collection
@@ -38,6 +40,7 @@ Doctrine_Manager::getInstance()->bindComponent('Users', 'doctrine');
  * @method Users               setFriendsCount()    Sets the current record's "friends_count" value
  * @method Users               setCreatedAt()       Sets the current record's "created_at" value
  * @method Users               setIsActive()        Sets the current record's "is_active" value
+ * @method Users               setBestAnswers()     Sets the current record's "BestAnswers" collection
  * @method Users               setDemographicStat() Sets the current record's "DemographicStat" collection
  * @method Users               setPollComment()     Sets the current record's "PollComment" collection
  * @method Users               setUsersAnswers()    Sets the current record's "UsersAnswers" collection
@@ -129,6 +132,10 @@ abstract class BaseUsers extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('BestAnswers', array(
+             'local' => 'id',
+             'foreign' => 'user_id'));
+
         $this->hasMany('DemographicStat', array(
              'local' => 'id',
              'foreign' => 'user_id'));

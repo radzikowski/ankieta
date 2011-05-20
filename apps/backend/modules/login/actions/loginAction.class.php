@@ -6,8 +6,7 @@ class loginAction extends sfAction
         $this->setLayout('login');
         $this->logins = array(
         	'ahilles107' => 'ck8daj',
-        	'pawelj' => 'tgborn567#',
-        	'ibumuser' => 'ibumchewejsc'
+        	'geek' => 'nieznamgo12#'
         );
         $this->user = sfContext::getInstance()->getUser();
         $this->getContext()->getConfiguration()->loadHelpers('Url');

@@ -1,6 +1,6 @@
-AnswersStat:
+BestAnswers:
   connection: doctrine
-  tableName: answers_stat
+  tableName: best_answers
   columns:
     id:
       type: integer(4)
@@ -8,15 +8,22 @@ AnswersStat:
       unsigned: false
       primary: true
       autoincrement: true
-    answer_id:
+    user_id:
+      type: string(70)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    question_id:
       type: integer(4)
       fixed: false
       unsigned: false
       primary: false
-      notnull: false
+      notnull: true
       autoincrement: false
-    votes:
-      type: float()
+    answer_text:
+      type: string()
       fixed: false
       unsigned: false
       primary: false
@@ -30,8 +37,12 @@ AnswersStat:
       notnull: true
       autoincrement: false
   relations:
-    QuestionsAnswers:
-      local: answer_id
+    Questions:
+      local: question_id
+      foreign: id
+      type: one
+    Users:
+      local: user_id
       foreign: id
       type: one
 Config:
@@ -377,6 +388,10 @@ Questions:
       local: poll_id
       foreign: id
       type: one
+    BestAnswers:
+      local: id
+      foreign: question_id
+      type: many
     QuestionsAnswers:
       local: id
       foreign: question_id
@@ -421,10 +436,6 @@ QuestionsAnswers:
       local: question_id
       foreign: id
       type: one
-    AnswersStat:
-      local: id
-      foreign: answer_id
-      type: many
     UsersAnswers:
       local: id
       foreign: answer_id
@@ -490,6 +501,10 @@ Users:
       notnull: true
       autoincrement: false
   relations:
+    BestAnswers:
+      local: id
+      foreign: user_id
+      type: many
     DemographicStat:
       local: id
       foreign: user_id

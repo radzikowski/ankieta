@@ -1,8 +1,12 @@
 <div id="quizModule">
-    <div class="header"><img src="/uploads/<?php ?>" /></div>
+    <div class="header" style="background-image: url('/uploads/<?php ?>');">
+        <a href="<?php echo url_for2('default', array('module' => 'result', 'action' => 'single'), true).'/poll/'.$poll->id; ?>">Zobacz wyniki ankiety</a>
+    </div>
     <div class="background" style="background-image: url('/uploads/<?php ?>');">
+        
+        <div class="contest">
 	<div class="clear" style="height: 1px"></div>
-	<?php echo $quizzCollectionForm->renderFormTag(null, array('id' => 'quizForm'));?>
+        <?php echo $quizzCollectionForm->renderFormTag(null, array('id' => 'quizForm'));?>
 	<?php echo $quizzCollectionForm['_csrf_token']->render();?>
 	<?php $i = 0; ?>
             <ul>
@@ -11,11 +15,19 @@
                 <?php echo $demographicForm['_csrf_token']->render();?>
                 <li class="<?php echo $i ?> <?php if($i === 0) echo 'active'; ?>"  iterate="<?php echo $i; ?>" style="<?php if($i !== 0) echo 'display:none'; ?>">
                     <div class="question"> Wypełnij część demograficzną ankiety</div>
+                    <div class="">Miasto: <?php echo $demographicForm['city']->render() ?></div>
                     <div class="">Wiek: <?php echo $demographicForm['age']->render() ?></div>
                     <div class="">Płeć: <?php echo $demographicForm['sex']->render() ?></div>
-                    <?php if ($demographicForm->hasErrors()){ ?>
-                    <div class="errors"><?php ?> </div>
-                    <?php } ?>
+                    <?php if($demographicForm->hasErrors()){?>
+                            <div class="error">
+                                    <ul>
+                                            <?php foreach($demographicForm->getErrorsArray() as $error){?>
+                                                    <li><?php echo $error?></li>
+                                            <?php }?>
+                                    </ul>
+                            </div>
+                    <?php }?>
+
                     </form>
                 <?php $i++; ?>
                 </li>
@@ -34,8 +46,11 @@
             </ul>
             <input type="hidden" name="signed_request" value="<?php echo sfContext::getInstance()->getUser()->getAttribute('signed_request', null, 'signed_request') ?>" />
 	</form>
-	<div class="prevQuestion right"></div>
-	<div class="nextQuestion right"></div>
+        <table style="margin-left: 37px">
+        <tr><td width="100px"><div class="prevQuestion">Wstecz</div></td><td width="200px"></td>
+        <td width="100px"><div class="nextQuestion">Dalej</div></td></tr>
+        </table>
+        </div>
     </div>
     <div class="footer"><img src="/uploads/<?php ?>" /></div>
 </div>
@@ -134,4 +149,37 @@ jQuery.preLoadImages(
 		'/images/aa.png' 
 		
 );
+
+	$(function() {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            
+            $( "#demographic_city" ).autocomplete({
+                source: availableTags
+            });
+	});
+
 </script>
+

@@ -1,5 +1,5 @@
 <?php echo $addQuestionForm->renderFormTag(null, array('id' => 'addQuestionForm')); ?>
-	<h3>Dodaj nowe pytanie:</h3>
+	<h3>Dodaj nowe pytanie<?php if ($dayNumber){ echo ' dla dnia numer '.$dayNumber; }?>:</h3>
 	<?php echo $addQuestionForm['_csrf_token']->render(); ?>
 	<?php echo $addQuestionForm['question']->render() ?>
 	<?php if($addQuestionForm['question']->hasError()){ ?>

@@ -29,7 +29,7 @@ class answerForm extends BaseForm
 				'trim' => true,
 				'required' => true
 			), array(
-				'required' => 'Odpowiedź jest wymagana!'
+				'required' => 'Pytanie jest wymagane!'
 			)),
 			'id' => new sfValidatorNumber(array(
 				'required' => true

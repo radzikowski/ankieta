@@ -5,19 +5,23 @@ class indexAction extends sfAction
 	{
 		$this->user = $this->getContext()->get('userFromBase');
 		$this->getContext()->getConfiguration()->loadHelpers('Url');
-	}
-       
-        public function execute($request)
-	{	
-            
+                
                 if (!$this->request->hasParameter('name'))
                     $this->redirect(url_for2('default', array('module' => 'missing', 'action' => 'index'), true));
-              
+
                 $this->poll = PollTable::getInstance()->findOneByName($this->request->getParameter('name'));
                 
                 if (!$this->poll)
                     $this->redirect(url_for2('default', array('module' => $this->request->getParameter('name') , 'action' => 'index'), true));
             
+                if ($this->user->UsersAnswers->count() > 0)
+                    $this->redirect(url_for2('default', array('module' => 'result', 'action' => 'index'), true));
+	}
+       
+        public function execute($request)
+	{	
+              
+                
 		$this->questions = Doctrine_Query::create()
 			->select('q.*, qa.*')
 			->from('Questions q')
@@ -47,8 +51,15 @@ class indexAction extends sfAction
 
                             if ($this->demographicForm->isValid())
                             {
-                                var_dump($this->demographicForm->getValue('age'));
-                                var_dump($this->demographicForm->getValue('sex'));
+                                $demographic = new DemographicStat();
+                                $demographic->fromArray(array(
+                                    'poll_id' => $this->poll->id,
+                                    'user_id' => $this->user->id,
+                                    'city' => $this->demographicForm->getValue('city'),
+                                    'age' => $this->demographicForm->getValue('age'),
+                                    'sex' => $this->demographicForm->getValue('sex')
+                                ));
+                                $demographic->save();
                             }   
                     }
                 }

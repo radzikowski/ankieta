@@ -37,6 +37,14 @@ class singleAction extends sfAction
                         ->where('p.id = ?', $this->poll->id)
                         ->addWhere('ua.answer_id is NULL')
                         ->execute();
+                
+                $this->bestAnswers = Doctrine_Query::create()
+                        ->select('u.*, ba.*, q.*')
+                        ->from('Questions q')
+                        ->leftjoin('q.BestAnswers ba')
+                        ->leftJoin('ba.Users u')
+                        ->orderBy('q.id')
+                        ->execute();
                 }
                 
                 $this->comments = Doctrine_Query::create()
@@ -63,6 +71,7 @@ class singleAction extends sfAction
                                     'comment' => $this->commentForm->getValue('comment')
                                 ));
                                 $comment->save();
+                                $this->redirect (url_for2 ('default', array('module' => 'result', 'action' => 'single'), true).'/poll/'.$this->poll->id);
                              }   
                     }
 

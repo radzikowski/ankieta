@@ -33,3 +33,13 @@ all:
 
     # Enable the database manager
     use_database:           true
+
+    # added think for sfJqueryPlugin
+#    jquery_web_dir: /sfJqueryReloadedPlugin
+#    jquery_ui: jquery-ui-1.7.3.custom.min.js
+#    jquery_autocomplete: jquery.autocomplete.min.js
+##    jquery_path: ~
+#    jquery_plugin_paths: ~
+    
+    
+    

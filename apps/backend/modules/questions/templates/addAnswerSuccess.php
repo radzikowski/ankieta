@@ -2,7 +2,7 @@
 	<h3>Dodaj nową odpowiedź dla pytania:</h3>
 	<p><?php echo $question->question ?></p>
 	<?php echo $addAnswerForm['_csrf_token']->render(); ?>
-	<?php echo $addAnswerForm['id_question']->render() ?>
+	<?php echo $addAnswerForm['question_id']->render() ?>
 	<h4>Odpowiedź: </h4>
 	<?php echo $addAnswerForm['value']->render() ?>
 	<?php if($addAnswerForm['value']->hasError()){ ?>

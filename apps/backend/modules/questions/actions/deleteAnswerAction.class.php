@@ -21,7 +21,7 @@ class deleteAnswerAction extends sfAction
 		sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
 		$this->question = QuestionsTable::getInstance()->findOneById($this->getRequest()->getParameter('questionId'));
 		if($this->question)
-			$this->answer = QuestionsAnswersTable::getInstance()->findOneByIdQuestionAndId($this->question->id, $this->getRequest()->getParameter('answerId'));
+			$this->answer = QuestionsAnswersTable::getInstance()->findOneByQuestionIdAndId($this->question->id, $this->getRequest()->getParameter('answerId'));
 		if ($this->answer)
 		{
 			$this->deleteAnswerForm = new deleteAnswerForm();

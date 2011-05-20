@@ -23,7 +23,7 @@ class addAnswerAction extends sfAction
 		if ($this->question)
 		{
 			$this->addAnswerForm = new addAnswerForm();
-			$this->addAnswerForm->setDefault('id_question',$this->question->getId());
+			$this->addAnswerForm->setDefault('question_id',$this->question['id']);
 
 			if ($this->getRequest()->hasParameter('addAnswer'))
 			{

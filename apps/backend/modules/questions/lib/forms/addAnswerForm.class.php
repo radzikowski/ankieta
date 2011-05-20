@@ -10,7 +10,7 @@ class addAnswerForm extends BaseForm
 	private function setWidgetsSchema()
 	{
 		$this->setWidgets(array(
-			'id_question' => new sfWidgetFormInputHidden(array(), array()),
+			'question_id' => new sfWidgetFormInputHidden(array(), array()),
 			'value' => new sfWidgetFormInput(array(), array())
 		));
 
@@ -20,7 +20,7 @@ class addAnswerForm extends BaseForm
 	private function setValidatorsSchema()
 	{
 		$this->setValidators(array(
-			'id_question' => new sfValidatorNumber(array(
+			'question_id' => new sfValidatorNumber(array(
 				'required' => true
 			), array(
 				'required' => 'Podane Id jest nieprawidłowe'

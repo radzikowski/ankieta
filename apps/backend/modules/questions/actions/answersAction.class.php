@@ -19,8 +19,10 @@ class answersAction extends sfAction
 	public function execute($request)
 	{
 		sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
-		$this->answers = QuestionsAnswersTable::getInstance()->findByIdQuestion($this->getRequest()->getParameter('id'));
+		$this->answers = QuestionsAnswersTable::getInstance()->findByQuestionId($this->getRequest()->getParameter('id'));
 		$this->question = QuestionsTable::getInstance()->findOneById($this->getRequest()->getParameter('id'));
+		$this->dayNumber = QuestionsOrderTable::getInstance()->findOneByQuestionId($this->getRequest()->getParameter('id'));
+		$this->dayNumber = $this->dayNumber['day_number'];
 		if ($this->answers)
 		{
 			$this->answersCollectionForm = new answersCollectionForm(null, array('answers' => $this->answers));

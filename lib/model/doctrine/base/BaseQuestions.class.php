@@ -12,6 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('Questions', 'doctrine');
  * @property string $question
  * @property timestamp $created_at
  * @property Poll $Poll
+ * @property Doctrine_Collection $BestAnswers
  * @property Doctrine_Collection $QuestionsAnswers
  * @property Doctrine_Collection $UsersAnswers
  * 
@@ -20,6 +21,7 @@ Doctrine_Manager::getInstance()->bindComponent('Questions', 'doctrine');
  * @method string              getQuestion()         Returns the current record's "question" value
  * @method timestamp           getCreatedAt()        Returns the current record's "created_at" value
  * @method Poll                getPoll()             Returns the current record's "Poll" value
+ * @method Doctrine_Collection getBestAnswers()      Returns the current record's "BestAnswers" collection
  * @method Doctrine_Collection getQuestionsAnswers() Returns the current record's "QuestionsAnswers" collection
  * @method Doctrine_Collection getUsersAnswers()     Returns the current record's "UsersAnswers" collection
  * @method Questions           setId()               Sets the current record's "id" value
@@ -27,6 +29,7 @@ Doctrine_Manager::getInstance()->bindComponent('Questions', 'doctrine');
  * @method Questions           setQuestion()         Sets the current record's "question" value
  * @method Questions           setCreatedAt()        Sets the current record's "created_at" value
  * @method Questions           setPoll()             Sets the current record's "Poll" value
+ * @method Questions           setBestAnswers()      Sets the current record's "BestAnswers" collection
  * @method Questions           setQuestionsAnswers() Sets the current record's "QuestionsAnswers" collection
  * @method Questions           setUsersAnswers()     Sets the current record's "UsersAnswers" collection
  * 
@@ -83,6 +86,10 @@ abstract class BaseQuestions extends sfDoctrineRecord
         $this->hasOne('Poll', array(
              'local' => 'poll_id',
              'foreign' => 'id'));
+
+        $this->hasMany('BestAnswers', array(
+             'local' => 'id',
+             'foreign' => 'question_id'));
 
         $this->hasMany('QuestionsAnswers', array(
              'local' => 'id',

@@ -20,7 +20,11 @@ class addQuestionAction extends sfAction
 	{
 		sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
 		$this->addQuestionForm = new addQuestionForm();
-
+		if ($this->getRequest()->hasParameter('nr'))
+		{	
+			$this->dayNumber = $this->getRequest()->getParameter('nr');
+		}
+		
 		if ($this->getRequest()->hasParameter('addQuestion'))
 		{
 			$this->addQuestionForm->bind($this->getRequest()->getParameter('addQuestion'));
@@ -28,8 +32,18 @@ class addQuestionAction extends sfAction
 			{
 				$this->question = new Questions();
 				$this->question->fromArray($this->addQuestionForm->getValues());
-				$this->question->edition = 1;
 				$this->question->save();
+				
+				$questionNumber = QuestionsOrderTable::getInstance()->findByDayNumber($this->dayNumber)->count();
+				
+				$this->questionOrder = new QuestionsOrder();
+				$this->questionOrder->fromArray(array(
+					'day_number' => $this->dayNumber,
+					'question_number' => $questionNumber,
+					'question_id' => $this->question->id
+				));
+				$this->questionOrder->save();
+				
 				$this->redirect(url_for2('default', array('module' => 'questions', 'action' => 'answers'), true) . '?id=' . $this->question->id);
 			}
 		}

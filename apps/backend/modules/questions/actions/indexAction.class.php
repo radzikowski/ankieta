@@ -22,7 +22,9 @@ class indexAction extends sfAction
 		$this->pager = new Doctrine_Pager(
 				 Doctrine_Query::create()
 					->from( 'Questions q' )
-					->orderby( 'q.id ASC' ),
+					->leftJoin('q.QuestionsOrder qo')
+					->orderby( 'qo.day_number ASC' )
+					->addOrderBy('qo.question_number ASC'),
 				$this->getRequest()->getParameter('page', 0), // Current page of request
 			25
 		);
@@ -32,7 +34,7 @@ class indexAction extends sfAction
 						new Doctrine_Pager_Range_Sliding(array(
 							'chunk' => 5
 						)),
-						url_for2('default_index', array('module' => 'users'), true).'?page={%page_number}'
+						url_for2('default_index', array('module' => 'questions'), true).'?page={%page_number}'
 		);
 		$this->pagerLayout->setTemplate(' <li><a href="{%url}">{%page}</a></li> ');
 

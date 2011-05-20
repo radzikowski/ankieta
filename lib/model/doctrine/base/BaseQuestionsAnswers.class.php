@@ -12,7 +12,6 @@ Doctrine_Manager::getInstance()->bindComponent('QuestionsAnswers', 'doctrine');
  * @property string $value
  * @property timestamp $created_at
  * @property Questions $Questions
- * @property Doctrine_Collection $AnswersStat
  * @property Doctrine_Collection $UsersAnswers
  * 
  * @method integer             getId()           Returns the current record's "id" value
@@ -20,14 +19,12 @@ Doctrine_Manager::getInstance()->bindComponent('QuestionsAnswers', 'doctrine');
  * @method string              getValue()        Returns the current record's "value" value
  * @method timestamp           getCreatedAt()    Returns the current record's "created_at" value
  * @method Questions           getQuestions()    Returns the current record's "Questions" value
- * @method Doctrine_Collection getAnswersStat()  Returns the current record's "AnswersStat" collection
  * @method Doctrine_Collection getUsersAnswers() Returns the current record's "UsersAnswers" collection
  * @method QuestionsAnswers    setId()           Sets the current record's "id" value
  * @method QuestionsAnswers    setQuestionId()   Sets the current record's "question_id" value
  * @method QuestionsAnswers    setValue()        Sets the current record's "value" value
  * @method QuestionsAnswers    setCreatedAt()    Sets the current record's "created_at" value
  * @method QuestionsAnswers    setQuestions()    Sets the current record's "Questions" value
- * @method QuestionsAnswers    setAnswersStat()  Sets the current record's "AnswersStat" collection
  * @method QuestionsAnswers    setUsersAnswers() Sets the current record's "UsersAnswers" collection
  * 
  * @package    ibum
@@ -83,10 +80,6 @@ abstract class BaseQuestionsAnswers extends sfDoctrineRecord
         $this->hasOne('Questions', array(
              'local' => 'question_id',
              'foreign' => 'id'));
-
-        $this->hasMany('AnswersStat', array(
-             'local' => 'id',
-             'foreign' => 'answer_id'));
 
         $this->hasMany('UsersAnswers', array(
              'local' => 'id',

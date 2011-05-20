@@ -13,12 +13,14 @@ default:
     #robots:       index, follow
 
   stylesheets:
+    - JqueryAutocomplete.css?v=1
     - screen.css?v=2
     - main.css?v=<?php echo time();?>
-
+    
   javascripts:
     - http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.1.js
     - http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.js
+    - jquery.autocomplete.min.js
     - cookie.js
     - frontend.js?v=<?php echo time(); ?> 
     - jquery.imagetick.js

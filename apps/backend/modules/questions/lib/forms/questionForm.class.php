@@ -10,6 +10,7 @@ class questionForm extends BaseForm
 	private function setWidgetsSchema()
 	{
 		$this->setWidgets(array(
+			'id' => new sfWidgetFormInputHidden(array(), array()),		
 			'question' => new sfWidgetFormTextarea(array(), array('id' => 'question'))
 		));
 
@@ -24,7 +25,12 @@ class questionForm extends BaseForm
 				'trim' => true
 			), array(
 				'required' => 'Podaj pytanie',
-			))
+			)),
+			'id' => new sfValidatorNumber(array(
+				'required' => true
+			), array(
+				'required' => 'Pole id jest wymagane'
+			))	
 		));
 	}
 

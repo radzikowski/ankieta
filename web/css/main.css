@@ -22,8 +22,18 @@ body{font-family: "Trebuchet MS",Helvetica,Jamrul,sans-serif; font-size: 16px;co
 
 #mainContainer{}
 #quizModule{width: 760px; height: 700px; margin: 0 auto; background-repeat: no-repeat; background-image: url('/images/quiz_background.jpg');}
-#quizModule #quizForm {margin-top: 116px;}
+#quizModule .question{text-align: center; font-weight: bold; font-size: 24px; margin-top: 20px; margin-bottom: 10px;}
+#quizModule .answers{text-align: left;}
+#quizModule .contest{margin-top:100px; text-align: center; vertical-align: middle; margin: 20px; border: 1px solid black; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+#quizModule #quizForm {margin-top: 0px;}
 #quizModule #quizForm ul {list-style: none}
-#quizModule .nextQuestion{background-image: url('/images/next_button.png');width: 108px;height: 39px;cursor: pointer;margin-right: 40px;/*position: fixed;right: 140px;bottom: 45px;*/}
-#quizModule .prevQuestion{background-image: url('/images/back_button.png');width: 108px;height: 39px;cursor: pointer;margin-right: 40px;/*position: fixed;right: 280px;bottom: 45px;*/}
+#quizModule .nextQuestion{background-color: #416dfe ; color: white; text-align: center; font-size: 20px; width: 108px;height: 39px;cursor: pointer; border: 1px solid black; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+#quizModule .prevQuestion{background-color: #416dfe ; color: white; text-align: center; font-size: 20px; width: 108px;height: 39px;cursor: pointer; border: 1px solid black; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
+
+#resultSingleModule{text-align: center;}
+#resultSingleModule .tittle{margin-top: 50px; font-size: 20px; margin-bottom: 30px; font-weight: bold}
+#resultSingleModule .comments{margin-left: 50px;}
+#resultSingleModule .user{text-align: left; margin-left: 20px; margin-top: 40px; font-style: italic}
+#resultSingleModule .userImage{margin-left:5px; margin-right: 5px; margin-bottom: -4px ;height: 30px}
+#resultSingleModule .comments .comment{}

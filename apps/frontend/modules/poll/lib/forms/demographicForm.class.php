@@ -12,13 +12,13 @@ class demogrphicForm extends BaseForm
 	private function setWidgetsSchema()
 	{
                 $this->setWidgets(array(
-			//'place' => new sfJqueryPlugin(array(),array()),
+			'city' => new sfWidgetFormInput(array(),array()),
                         'age' => new sfWidgetFormInput(array(),array()),
 			'sex' => new sfWidgetFormChoice(array(
 				'choices' => array('male' => 'Mężczyzna', 'female' => 'Kobieta'),
                                 'multiple' => false,
                                 'expanded' => true
-                        ), array())
+                        ), array('style' => 'display: inline;'))
 		));
 
 		$this->widgetSchema->setNameFormat('demographic[%s]');
@@ -27,11 +27,23 @@ class demogrphicForm extends BaseForm
 	private function setValidatorsSchema()
 	{
 		$this->setValidators(array(
-			//'question' => new sfValidatorString(array('required' => false), array()),
-			'age' => new sfValidatorNumber(array('required' => true),array()),
+			'city' => new sfValidatorString(array(
+				'required' => true,
+                                'trim' => true
+                        ),array(
+                            'required' => 'Proszę podać miejscowość'
+                        )),
+                        'age' => new sfValidatorNumber(array(
+                            'required' => true
+                        ),array(
+                            'required' => 'Podaj swój wiek'
+                        )),
                         'sex' => new sfValidatorString(array(
-				'required' => true
-                        ),array()),                   
+				'required' => true,
+                                'trim' => true
+                        ),array(
+                            'required' => 'Podaj płeć'
+                        )),                   
 		));
 	}
 

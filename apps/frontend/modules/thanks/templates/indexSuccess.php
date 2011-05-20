@@ -1,3 +1,0 @@
-<div>
-    modul thanks
-</div>
